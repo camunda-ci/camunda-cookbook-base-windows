@@ -1,0 +1,32 @@
+#
+# Cookbook Name:: camunda-base-windwos
+# Recipe:: clean-script
+#
+# Copyright (C) 2014 camunda
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+bin_path = node['camunda']['path']['bin']
+
+# create clean script
+file "#{bin_path}/clean-space.cmd" do
+  #content "rmdir /S /Q C:\\chef \\n udefrag --optimize --repeat %SystemDrive% \\n #{bin_path}\\sdelete /accepteula -z"
+  content <<-EOH
+  rmdir /S /Q C:\\chef \r
+  udefrag --optimize --repeat %SystemDrive% \r
+  #{bin_path}\\sdelete /accepteula -z"
+  EOH
+  action :create
+end
+
