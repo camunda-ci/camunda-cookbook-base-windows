@@ -19,7 +19,7 @@
 
 # install ultradefrag
 windows_package 'UltraDefrag' do
-  source node['camunda']['url']['ultradefrag']
+  source "#{node['camunda']['host']['ftp']}/#{node['camunda']['url']['ultradefrag']}"
   action :install
 end
 

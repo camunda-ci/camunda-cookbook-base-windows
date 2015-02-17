@@ -21,7 +21,7 @@ install_dir = node['camunda']['path']['bin']
 
 # install sdelete
 windows_zipfile install_dir do
-  source node['camunda']['url']['sdelete']
+  source "#{node['camunda']['host']['ftp']}/#{node['camunda']['url']['sdelete']}"
   action :unzip
   not_if {::File.exists?("#{install_dir}/sdelete.exe")}
 end

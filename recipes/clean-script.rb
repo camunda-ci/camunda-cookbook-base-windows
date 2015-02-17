@@ -21,7 +21,6 @@ bin_path = node['camunda']['path']['bin']
 
 # create clean script
 file "#{bin_path}/clean-space.cmd" do
-  #content "rmdir /S /Q C:\\chef \\n udefrag --optimize --repeat %SystemDrive% \\n #{bin_path}\\sdelete /accepteula -z"
   content <<-EOH
   rmdir /S /Q C:\\chef \r
   udefrag --optimize --repeat %SystemDrive% \r
