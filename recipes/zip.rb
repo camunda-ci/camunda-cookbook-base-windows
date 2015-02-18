@@ -19,6 +19,6 @@
 
 # install 7-zip
 windows_package '7-Zip' do
-  source "#{node['camunda']['host']['ftp']}/#{node['camunda']['url']['7zip']}"
+  source node['camunda']['url']['7zip']
   action :install
 end

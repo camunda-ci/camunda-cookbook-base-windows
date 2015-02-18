@@ -21,7 +21,7 @@ java_home = node['camunda']['path']['java']
 
 # install jdk
 windows_package 'Oracle JDK 7' do
-  source "#{node['camunda']['host']['ftp']}/#{node['camunda']['url']['jdk7']}"
+  source node['camunda']['url']['jdk7']
   action :install
   installer_type :custom
   options "/s INSTALLDIR=\"#{java_home}\""
