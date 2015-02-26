@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: camunda-base-windwos
+# Cookbook Name:: camunda-base-windows
 # Recipe:: bginfo
 #
 # Copyright (C) 2014 camunda
