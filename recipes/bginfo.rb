@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: camunda-base-windwos
-# Recipe:: default
+# Recipe:: bginfo
 #
 # Copyright (C) 2014 camunda
 #
@@ -17,22 +17,4 @@
 # limitations under the License.
 #
 
-# create bin dir
-directory node['camunda']['path']['bin'] do
-  action :create
-end
-
-# add bin to path
-windows_path node['camunda']['path']['bin'] do
-  action :add
-end
-
-include_recipe 'camunda-base-windows::disable-updates'
-include_recipe 'camunda-base-windows::winrm'
-include_recipe 'camunda-base-windows::clean-script'
-include_recipe 'camunda-base-windows::bginfo'
-
-include_recipe 'camunda-base-windows::zip'
-include_recipe 'camunda-base-windows::ultradefrag'
-include_recipe 'camunda-base-windows::sdelete'
-include_recipe 'camunda-base-windows::jdk'
+include_recipe 'bginfo::default'

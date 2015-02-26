@@ -11,3 +11,4 @@ recipe 'camunda-base-windows::default', 'Configures base windows environment.'
 supports 'windows', '2012'
 
 depends 'windows'
+depends 'bginfo'
