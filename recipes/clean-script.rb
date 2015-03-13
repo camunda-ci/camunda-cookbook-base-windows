@@ -23,7 +23,6 @@ bin_path = node['camunda']['path']['bin']
 file "#{bin_path}/clean-space.cmd" do
   content <<-EOH
   rmdir /S /Q C:\\chef \r
-  udefrag --optimize --repeat %SystemDrive% \r
   #{bin_path}\\sdelete /accepteula -z"
   EOH
   action :create
