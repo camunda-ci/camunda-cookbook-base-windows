@@ -26,9 +26,11 @@ registry_key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Windo
   action :create
 end
 
-windows_batch 'disable automatic updates service' do
+batch 'disable automatic updates service' do
   code <<-EOF
   sc config wuauserv start= disabled
   net stop wuauserv
   EOF
+  retries 3
+  retry_delay 5
 end

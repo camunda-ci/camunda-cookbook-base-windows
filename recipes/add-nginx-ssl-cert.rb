@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: camunda-base-windows
-# Recipe:: default
+# Recipe:: add-nginx-ssl-cert
 #
 # Copyright (C) 2014 camunda
 #
@@ -17,23 +17,25 @@
 # limitations under the License.
 #
 
-# create bin dir
-directory node['camunda']['path']['bin'] do
-  action :create
+cert = "#{node['camunda']['cert']['unsecure']}"
+dest = 'C:/opscode/chef/embedded/ssl/certs/nginx_consul.crt'
+
+remote_file "#{dest}" do
+  source cert
+  action :nothing
 end
 
-# add bin to path
-windows_path node['camunda']['path']['bin'] do
-  action :add
+http_request "HEAD #{cert}" do
+  message ''
+  url cert
+  action :head
+  if File.exist?(dest)
+    headers 'If-Modified-Since' => File.mtime(dest).httpdate
+  end
+  notifies :create, "remote_file[#{dest}]", :immediately
 end
 
-include_recipe 'camunda-base-windows::add-nginx-ssl-cert'
-include_recipe 'camunda-base-windows::disable-updates'
-include_recipe 'camunda-base-windows::winrm'
-include_recipe 'camunda-base-windows::clean-script'
-include_recipe 'camunda-base-windows::bginfo'
-
-include_recipe 'camunda-base-windows::zip'
-include_recipe 'camunda-base-windows::ultradefrag'
-include_recipe 'camunda-base-windows::sdelete'
-include_recipe 'camunda-base-windows::jdk'
+execute 'append nginx_consul.crt to chef cacert.pem' do
+  command 'type nginx_consul.crt >> cacert.pem'
+  cwd 'C:/opscode/chef/embedded/ssl/certs/'
+end
